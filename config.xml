@@ -14,11 +14,7 @@
     <preference name="DisallowOverscroll" value="true"/>
 	<preference name="SplashScreenDelay" value="5000"/>
     <plugin spec="https://github.com/don/cordova-plugin-ble-central#1fd8a1c" />
-	
-	<platform name="ios">
-		<splash src="splash/ios/Default-568h@2x~iphone.png" width="640" height="960" />
-	</platform>
-	<splash src="splash.png" />
+	<gap:splash src="splash.png" />
 </widget>
 
 
