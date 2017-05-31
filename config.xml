@@ -1,20 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.thebluetoothbook.blelock" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>BLE Lock</name>
+<widget id="com.chameleondrum.ble" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Chameleon BLE</name>
     <description>
-      A sample Apache Cordova application that unlocks a solenoid lock via Bluetooth Low Energy
+      Chameleon Drum BLE
     </description>
-    <author href="https://github.com/don">
-        Don Coleman
+    <author href="https://github.com/adc-dev">
+        Adc
     </author>
     <content src="index.html" />
     <access origin="*" />
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="DisallowOverscroll" value="true"/>
-	<preference name="SplashScreenDelay" value="5000"/>
     <plugin spec="https://github.com/don/cordova-plugin-ble-central#1fd8a1c" />
-	<gap:splash src="splash.png" />
 </widget>
 
 
