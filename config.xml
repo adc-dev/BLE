@@ -12,4 +12,5 @@
     <preference name="KeyboardDisplayRequiresUserAction" value="true" />
     <preference name="Orientation" value="portrait" />
     <preference name="DisallowOverscroll" value="true"/>
+	<plugin name="cordova-plugin-ble-central " spec="https://github.com/don/cordova-plugin-ble-central" />
 </widget>
