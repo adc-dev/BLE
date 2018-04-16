@@ -118,7 +118,8 @@ var app = {
 
         //if (code === "") { return; } // don't send empty data
         var code = "12345";
-		app.showProgressIndicator();
+	e.preventDefault();
+	app.showProgressIndicator();
 
         function success() {
             //e.target.code.value = ""; //  clear the input
