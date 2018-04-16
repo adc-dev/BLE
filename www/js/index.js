@@ -121,11 +121,11 @@ var app = {
 		app.showProgressIndicator();
 
         function success() {
-            e.target.code.value = ""; //  clear the input
+            //e.target.code.value = ""; //  clear the input
         }
 
         function failure (reason) {
-            alert("Error sending code " + reason);
+            //alert("Error sending code " + reason);
             app.hideProgressIndicator();
         }
 
