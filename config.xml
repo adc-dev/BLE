@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.thebluetoothbook.blelock" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Safretti Vertigo</name>
+    <description>
+      Safretti Vertigo
+    </description>
+    <author href="https://github.com/adc-dev">
+        Adc
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="DisallowOverscroll" value="true"/>
+    <plugin spec="https://github.com/don/cordova-plugin-ble-central#1fd8a1c" />
+</widget>
+
+
+
+
+
