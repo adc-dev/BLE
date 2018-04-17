@@ -5,7 +5,8 @@
 var SERVICE_UUID = 'D270';
 //var UNLOCK_UUID = 'D271';
 var POWERON_UUID = 'D271';
-var MESSAGE_UUID = 'D272';
+var POWEROFF_UUID = 'D272';
+var MESSAGE_UUID = 'D273';
 
 function stringToArrayBuffer(str) {
     // assuming 8 bit bytes
@@ -36,6 +37,7 @@ var app = {
         refreshButton.ontouchstart = app.scan;
         disconnectButton.onclick = app.disconnect;
 		onButton.onclick = app.poweron;
+		offButton.onclick = app.poweroff;
 		
 		
 		
@@ -135,6 +137,30 @@ var app = {
             SERVICE_UUID,
             //UNLOCK_UUID,
 			POWERON_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+	poweroff: function(e) {
+		
+        var code = "0x807F02FD";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWEROFF_UUID,
             stringToArrayBuffer(code),
             success, failure
         );
