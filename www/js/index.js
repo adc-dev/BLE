@@ -3,7 +3,8 @@
 // Bluetooth Low Energy Lock (c) 2014-2015 Don Coleman
 
 var SERVICE_UUID = 'D270';
-var UNLOCK_UUID = 'D271';
+//var UNLOCK_UUID = 'D271';
+var POWERON_UUID = 'D271';
 var MESSAGE_UUID = 'D272';
 
 function stringToArrayBuffer(str) {
@@ -34,7 +35,10 @@ var app = {
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.scan;
         disconnectButton.onclick = app.disconnect;
-
+		onButton.onclick = app.poweron;
+		
+		
+		
         app.scan();
     },
     scan: function(e) {
@@ -112,14 +116,10 @@ var app = {
         app.setStatus(message);
         app.hideProgressIndicator();
     },
-    unlock: function(e) {
-        //var code = e.target.code.value;
-        //e.preventDefault(); // don't submit the form
-
-        //if (code === "") { return; } // don't send empty data
-        var code = "12345";
-	e.preventDefault();
-	app.showProgressIndicator();
+	poweron: function(e) {
+		
+        var code = "0x807F926D";
+		app.showProgressIndicator();
 
         function success() {
             //e.target.code.value = ""; //  clear the input
@@ -133,7 +133,35 @@ var app = {
         ble.write(
             app.connectedPeripheral.id,
             SERVICE_UUID,
-            UNLOCK_UUID,
+            //UNLOCK_UUID,
+			POWERON_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+    unlock: function(e) {
+        //var code = e.target.code.value;
+        //e.preventDefault(); // don't submit the form
+
+        //if (code === "") { return; } // don't send empty data
+        var code = "12345";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERON_UUID,
             stringToArrayBuffer(code),
             success, failure
         );
