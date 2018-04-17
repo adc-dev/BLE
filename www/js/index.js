@@ -6,7 +6,10 @@ var SERVICE_UUID = 'D270';
 //var UNLOCK_UUID = 'D271';
 var POWERON_UUID = 'D271';
 var POWEROFF_UUID = 'D272';
-var MESSAGE_UUID = 'D273';
+var POWERUP_UUID = 'D273';
+var POWERDOWN_UUID = 'D274';
+var FLAME_UUID = 'D275';
+var MESSAGE_UUID = 'D276';
 
 function stringToArrayBuffer(str) {
     // assuming 8 bit bytes
@@ -30,7 +33,7 @@ var app = {
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.forms[0].addEventListener('submit', this.unlock, false);
+        //document.forms[0].addEventListener('submit', this.unlock, false);
     },
     onDeviceReady: function() {
         deviceList.ontouchstart = app.connect; // assume not scrolling
@@ -38,8 +41,9 @@ var app = {
         disconnectButton.onclick = app.disconnect;
 		onButton.onclick = app.poweron;
 		offButton.onclick = app.poweroff;
-		
-		
+		upButton.onclick = app.powerup;
+		downButton.onclick = app.powerdown;
+		flameButton.onclick = app.flame;
 		
         app.scan();
     },
@@ -166,7 +170,79 @@ var app = {
         );
 
     },
-    unlock: function(e) {
+	powerup: function(e) {
+		
+        var code = "0x807FE21D";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERUP_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+	powerdown: function(e) {
+		
+        var code = "0x807F32CD";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERDOWN_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+	flame: function(e) {
+		
+        var code = "0x807F12ED";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			FLAME_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+    /*unlock: function(e) {
         //var code = e.target.code.value;
         //e.preventDefault(); // don't submit the form
 
@@ -192,7 +268,7 @@ var app = {
             success, failure
         );
 
-    },
+    },*/
     showProgressIndicator: function(message) {
         if (!message) { message = "Processing"; }
         scrim.firstElementChild.innerHTML = message;
