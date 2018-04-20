@@ -4,12 +4,9 @@
 
 var SERVICE_UUID = 'D270';
 //var UNLOCK_UUID = 'D271';
-var POWERON_UUID = 'D271';
-var POWEROFF_UUID = 'D272';
-var POWERUP_UUID = 'D273';
-var POWERDOWN_UUID = 'D274';
-var FLAME_UUID = 'D275';
-var MESSAGE_UUID = 'D276';
+var PROGRAMUP_UUID = 'D271';
+var PROGRAMDOWN_UUID = 'D272';
+var MESSAGE_UUID = 'D273';
 
 function stringToArrayBuffer(str) {
     // assuming 8 bit bytes
@@ -39,11 +36,8 @@ var app = {
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.scan;
         disconnectButton.onclick = app.disconnect;
-		onButton.onclick = app.poweron;
-		offButton.onclick = app.poweroff;
-		upButton.onclick = app.powerup;
-		downButton.onclick = app.powerdown;
-		flameButton.onclick = app.flame;
+		programUpButton.onclick = app.programUp;
+		programDownButton.onclick = app.programDown;
 		
         app.scan();
     },
@@ -122,9 +116,9 @@ var app = {
         app.setStatus(message);
         app.hideProgressIndicator();
     },
-	poweron: function(e) {
+	programUp: function(e) {
 		
-        var code = "0x807F926D";
+        var code = "+";
 		app.showProgressIndicator();
 
         function success() {
@@ -140,18 +134,20 @@ var app = {
             app.connectedPeripheral.id,
             SERVICE_UUID,
             //UNLOCK_UUID,
-			POWERON_UUID,
-            stringToArrayBuffer(code),
+			PROGRAMUP_UUID,
+            //stringToArrayBuffer(code),
             success, failure
         );
 
     },
-	poweroff: function(e) {
+
+	programDown: function(e) {
 		
-        var code = "0x807F02FD";
+        //var programsetted = message;
 		app.showProgressIndicator();
 
         function success() {
+			app.setStatus("Programma impostato " + programsetted);
             //e.target.code.value = ""; //  clear the input
         }
 
@@ -164,111 +160,12 @@ var app = {
             app.connectedPeripheral.id,
             SERVICE_UUID,
             //UNLOCK_UUID,
-			POWEROFF_UUID,
-            stringToArrayBuffer(code),
+			PROGRAMDOWN_UUID,
+            //stringToArrayBuffer(code),
             success, failure
         );
 
     },
-	powerup: function(e) {
-		
-        var code = "0x807FE21D";
-		app.showProgressIndicator();
-
-        function success() {
-            //e.target.code.value = ""; //  clear the input
-        }
-
-        function failure (reason) {
-            //alert("Error sending code " + reason);
-            app.hideProgressIndicator();
-        }
-
-        ble.write(
-            app.connectedPeripheral.id,
-            SERVICE_UUID,
-            //UNLOCK_UUID,
-			POWERUP_UUID,
-            stringToArrayBuffer(code),
-            success, failure
-        );
-
-    },
-	powerdown: function(e) {
-		
-        var code = "0x807F32CD";
-		app.showProgressIndicator();
-
-        function success() {
-            //e.target.code.value = ""; //  clear the input
-        }
-
-        function failure (reason) {
-            //alert("Error sending code " + reason);
-            app.hideProgressIndicator();
-        }
-
-        ble.write(
-            app.connectedPeripheral.id,
-            SERVICE_UUID,
-            //UNLOCK_UUID,
-			POWERDOWN_UUID,
-            stringToArrayBuffer(code),
-            success, failure
-        );
-
-    },
-	flame: function(e) {
-		
-        var code = "0x807F12ED";
-		app.showProgressIndicator();
-
-        function success() {
-            //e.target.code.value = ""; //  clear the input
-        }
-
-        function failure (reason) {
-            //alert("Error sending code " + reason);
-            app.hideProgressIndicator();
-        }
-
-        ble.write(
-            app.connectedPeripheral.id,
-            SERVICE_UUID,
-            //UNLOCK_UUID,
-			FLAME_UUID,
-            stringToArrayBuffer(code),
-            success, failure
-        );
-
-    },
-    /*unlock: function(e) {
-        //var code = e.target.code.value;
-        //e.preventDefault(); // don't submit the form
-
-        //if (code === "") { return; } // don't send empty data
-        var code = "12345";
-		app.showProgressIndicator();
-
-        function success() {
-            //e.target.code.value = ""; //  clear the input
-        }
-
-        function failure (reason) {
-            //alert("Error sending code " + reason);
-            app.hideProgressIndicator();
-        }
-
-        ble.write(
-            app.connectedPeripheral.id,
-            SERVICE_UUID,
-            //UNLOCK_UUID,
-			POWERON_UUID,
-            stringToArrayBuffer(code),
-            success, failure
-        );
-
-    },*/
     showProgressIndicator: function(message) {
         if (!message) { message = "Processing"; }
         scrim.firstElementChild.innerHTML = message;
