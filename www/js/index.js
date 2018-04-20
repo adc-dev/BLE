@@ -4,11 +4,11 @@
 
 var SERVICE_UUID = 'D270';
 //var UNLOCK_UUID = 'D271';
-var POWERON_UUID = 'D271';
-var POWEROFF_UUID = 'D272';
+//var POWERON_UUID = 'D271';
+//var POWEROFF_UUID = 'D272';
 var POWERUP_UUID = 'D273';
 var POWERDOWN_UUID = 'D274';
-var FLAME_UUID = 'D275';
+//var FLAME_UUID = 'D275';
 var MESSAGE_UUID = 'D276';
 
 function stringToArrayBuffer(str) {
@@ -39,11 +39,11 @@ var app = {
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.scan;
         disconnectButton.onclick = app.disconnect;
-		onButton.onclick = app.poweron;
-		offButton.onclick = app.poweroff;
+		//onButton.onclick = app.poweron;
+		//offButton.onclick = app.poweroff;
 		upButton.onclick = app.powerup;
 		downButton.onclick = app.powerdown;
-		flameButton.onclick = app.flame;
+		//flameButton.onclick = app.flame;
 		
         app.scan();
     },
@@ -122,7 +122,7 @@ var app = {
         app.setStatus(message);
         app.hideProgressIndicator();
     },
-	poweron: function(e) {
+	/*poweron: function(e) {
 		
         var code = "0x807F926D";
 		app.showProgressIndicator();
@@ -169,7 +169,7 @@ var app = {
             success, failure
         );
 
-    },
+    }, */
 	powerup: function(e) {
 		
         var code = "0x807FE21D";
@@ -218,7 +218,7 @@ var app = {
         );
 
     },
-	flame: function(e) {
+	/* flame: function(e) {
 		
         var code = "0x807F12ED";
 		app.showProgressIndicator();
@@ -242,7 +242,7 @@ var app = {
         );
 
     },
-    /*unlock: function(e) {
+    unlock: function(e) {
         //var code = e.target.code.value;
         //e.preventDefault(); // don't submit the form
 
