@@ -36,8 +36,9 @@ var app = {
         deviceList.ontouchstart = app.connect; // assume not scrolling
         refreshButton.ontouchstart = app.scan;
         disconnectButton.onclick = app.disconnect;
-		programUpButton.onclick = app.programUp;
-		programDownButton.onclick = app.programDown;
+		programUpButton.onclick = app.poweron;
+		programDownButton.onclick = app.poweroff;
+	
 		
         app.scan();
     },
@@ -116,9 +117,9 @@ var app = {
         app.setStatus(message);
         app.hideProgressIndicator();
     },
-	programUp: function(e) {
+	poweron: function(e) {
 		
-        var code = "+";
+        var code = "0x807F926D";
 		app.showProgressIndicator();
 
         function success() {
@@ -135,19 +136,17 @@ var app = {
             SERVICE_UUID,
             //UNLOCK_UUID,
 			PROGRAMUP_UUID,
-            //stringToArrayBuffer(code),
+            stringToArrayBuffer(code),
             success, failure
         );
 
     },
-
-	programDown: function(e) {
+	poweroff: function(e) {
 		
-        //var programsetted = message;
+        var code = "0x807F02FD";
 		app.showProgressIndicator();
 
         function success() {
-			app.setStatus("Programma impostato " + programsetted);
             //e.target.code.value = ""; //  clear the input
         }
 
@@ -161,11 +160,110 @@ var app = {
             SERVICE_UUID,
             //UNLOCK_UUID,
 			PROGRAMDOWN_UUID,
-            //stringToArrayBuffer(code),
+            stringToArrayBuffer(code),
             success, failure
         );
 
     },
+	powerup: function(e) {
+		
+        var code = "0x807FE21D";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERUP_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+	powerdown: function(e) {
+		
+        var code = "0x807F32CD";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERDOWN_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+	flame: function(e) {
+		
+        var code = "0x807F12ED";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			FLAME_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },
+    /*unlock: function(e) {
+        //var code = e.target.code.value;
+        //e.preventDefault(); // don't submit the form
+
+        //if (code === "") { return; } // don't send empty data
+        var code = "12345";
+		app.showProgressIndicator();
+
+        function success() {
+            //e.target.code.value = ""; //  clear the input
+        }
+
+        function failure (reason) {
+            //alert("Error sending code " + reason);
+            app.hideProgressIndicator();
+        }
+
+        ble.write(
+            app.connectedPeripheral.id,
+            SERVICE_UUID,
+            //UNLOCK_UUID,
+			POWERON_UUID,
+            stringToArrayBuffer(code),
+            success, failure
+        );
+
+    },*/
     showProgressIndicator: function(message) {
         if (!message) { message = "Processing"; }
         scrim.firstElementChild.innerHTML = message;
